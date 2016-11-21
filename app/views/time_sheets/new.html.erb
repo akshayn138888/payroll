@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+  	<div class="col-md-12">
+			<h1>Timesheet</h1>
+			<p>
+				<% if current_user.present? %>
+					<% select_url =  @time_sheet.id.nil? ? time_sheets_path : time_sheet_path(@time_sheet) %>
+					<% select_method =  @time_sheet.id.nil? ? "post" : "put" %>
+					<%= form_for @time_sheet, url: select_url, method: select_method do |f| %>
+						<%= f.hidden_field :check_in, value: Time.now if !@check_in %>
+						<%= f.hidden_field :check_out, value: Time.now if @check_in && !@check_out %>
+						<%= f.submit !@check_in ? "Check In" : "Check Out" ,class:"btn btn-default" %>
+					<%end%>
+				<%end%>
+			</p>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Check In</th>
+						<th>Check Out</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @time_sheets.each do |time_sheet| %>
+						<tr>
+							<td><%= time_sheet.date? %></td>
+							<td><%= time_sheet.check_in? %></td>
+							<td><%= time_sheet.check_out? %></td>
+						</tr>
+					<%end%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
