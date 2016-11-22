@@ -30,6 +30,7 @@
         <div><h2>News</h2></div>
       </div>
       <div class="news_api_webhose col-md-12">
+        <img src="/assets/loader.gif" alt="loading..." class="load_news">
       </div>
     </div>
   <% else %>
@@ -80,13 +81,18 @@
     console.log(news);
     $.ajax({
         url: news,
-        method: "get"
+        method: "get",
+        beforeSend: function(){
+          console.log("loading...");
+          $(".load_news").show();
+        }
     }).done(function(res) {
+        $(".load_news").hide();
         if (res) {
             $.each(res.posts, function(key,value){
               var publish = "<p><b>Published:</b>"+value.published+"</p>";
               var link = "<a href="+value.url+" target='_blank'>more</a>";
-              var description = "<li>"+publish+""+value.text+" . . ."+link+"</li>";
+              var description = "<li>"+publish+""+value.text+"..."+link+"</li>";
               if (value.thread.main_image !== null){
                 var news_image = "<p><img style='width:100%;' src="+value.thread.main_image+"></p>"
               }else{

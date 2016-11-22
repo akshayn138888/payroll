@@ -28,14 +28,14 @@ a{
   border-radius: 0;
 }
 .weather_report{
-  width: 350px;
+  width: 100%;
   float: right;
   clear: both;
   margin-bottom: 20px;
 }
 
 .news_api_webhose{
-	width: 350px;
+	width: 100%;
 	float:right;
 	text-align:justify;
 	word-break:break-word;
@@ -43,7 +43,7 @@ a{
 	height:338px;
 }
 .news_api{
-	width: 350px;
+	width: 100%;
 	float:right;
 	text-align:justify;
 	word-break:break-word;
@@ -52,9 +52,13 @@ a{
 	height:338px;
 }
 .news-heading{
-	width: 350px;
+	width: 100%;
 	float:right;
 }
 ul.news_ul{
 	list-style-type: none;
+}
+.load_news{
+	display: none;
+	margin: 5px 47%;
 }
