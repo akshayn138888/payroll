@@ -83,13 +83,16 @@
         method: "get"
     }).done(function(res) {
         if (res) {
-            // console.log(res);
-            console.log(res.posts);
             $.each(res.posts, function(key,value){
-              console.log(value);
-              var link = "<a href="+value.url+" target='_blank'>more</a>"
-              var description = "<li>"+value.text+" . . ."+link+"</li>"
-              $('.news_api_webhose').append("<ul style='width:100%;' class='news_ul'><strong>"+value.title+"</strong>"+description+"</ul>");
+              var publish = "<p><b>Published:</b>"+value.published+"</p>";
+              var link = "<a href="+value.url+" target='_blank'>more</a>";
+              var description = "<li>"+publish+""+value.text+" . . ."+link+"</li>";
+              if (value.thread.main_image !== null){
+                var news_image = "<p><img style='width:100%;' src="+value.thread.main_image+"></p>"
+              }else{
+                var news_image = "";
+              }
+              $('.news_api_webhose').append("<ul style='width:100%;' class='news_ul'><strong>"+value.title+"</strong>"+news_image+""+description+"</ul>");
             });
         } else {
             $('.news_api_webhose').append(res.message);
