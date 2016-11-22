@@ -1,24 +1,4 @@
 <div  class="row">
-  <% if current_user %>
-    <div class="weather_report col-md-4">
-      <% require "open_weather" %>
-      <% options = { units: "metric", APPID: "cb1d01bbe4a55571e6d3fdab011e6f40"} %>
-      <% @weather = OpenWeather::Current.city("Cochin, IN", options) %>
-      <div><h2><%= current_user.csc %></h2></div>
-      <div>
-        <span><img src="http://openweathermap.org/img/w/<%=@weather["weather"][0]["icon"]%>.png"></span>
-        <%= @weather["weather"][0]["main"] %> - <%= @weather["weather"][0]["description"] %>
-      </div>
-      <div>
-        <strong>Temperature:</strong> Min Temp: <%= @weather["main"]["temp_min"] %> & Max Temp: <%= @weather["main"]["temp_max"] %>
-      </div>
-      <div><strong>Humidity:</strong> <%=@weather["main"]["humidity"]%></div>
-      <div><strong>Wind:</strong> <%= @weather["wind"]["speed"]%>, Deg: <%= @weather["wind"]["deg"]%></div>
-    </div>
-  <% else %>
-    <div class="col-md-4"></div>
-  <% end %>
-
   <div class="col-md-8">
     <% if current_user %>
       <div>
@@ -29,6 +9,33 @@
       </div>
     <% end %>
   </div>
+  <% if current_user %>
+    <div class="col-md-4">
+      <div class="weather_report col-md-12">
+        <% require "open_weather" %>
+        <% options = { units: "metric", APPID: "cb1d01bbe4a55571e6d3fdab011e6f40"} %>
+        <% @weather = OpenWeather::Current.city("Cochin, IN", options) %>
+        <div><h2><%= current_user.csc %></h2></div>
+        <div>
+          <span><img src="http://openweathermap.org/img/w/<%=@weather["weather"][0]["icon"]%>.png"></span>
+          <%= @weather["weather"][0]["main"] %> - <%= @weather["weather"][0]["description"] %>
+        </div>
+        <div>
+          <strong>Temperature:</strong> Min Temp: <%= @weather["main"]["temp_min"] %> & Max Temp: <%= @weather["main"]["temp_max"] %>
+        </div>
+        <div><strong>Humidity:</strong> <%=@weather["main"]["humidity"]%></div>
+        <div><strong>Wind:</strong> <%= @weather["wind"]["speed"]%>, Deg: <%= @weather["wind"]["deg"]%></div>
+      </div>
+      <div class="news-heading col-md-12">
+        <div><h2>News</h2></div>
+      </div>
+      <div class="news_api_webhose col-md-12">
+      </div>
+    </div>
+  <% else %>
+    <div class="col-md-4"></div>
+  <% end %>
+
 
 </div>
 
@@ -45,23 +52,74 @@
 
 <% if current_user %>
   <script type="text/javascript">
-    <% @location =Geocoder.coordinates(current_user.csc)%>
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-      markers = handler.addMarkers([
-        {
-          "lat": <%= @location[0] %>,
-          "lng": <%= @location[1] %>,
-          // "picture": {
-          //   "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
-          //   "width":  32,
-          //   "height": 32
-          // },
-          // "infowindow": "hello!"
+    $( document ).ready(function() {
+      <% @location =Geocoder.coordinates(current_user.csc)%>
+      handler = Gmaps.build('Google');
+      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+        markers = handler.addMarkers([
+          {
+            "lat": <%= @location[0] %>,
+            "lng": <%= @location[1] %>,
+            // "picture": {
+            //   "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+            //   "width":  32,
+            //   "height": 32
+            // },
+            // "infowindow": "hello!"
+          }
+        ]);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+      });
+    });
+  </script>
+  <!-- news api -->
+  <script type="text/javascript">
+    // var news = "https://newsapi.org/v1/articles?source=google-news&sortBy=top&apiKey=<%#=Rails.application.secrets.news_api %>"
+    // var news = "https://newsapi.org/v1/sources?country=<%#= current_user.country %>&apiKey=<%#=Rails.application.secrets.news_api %>"
+    var news = "https://newsapi.org/v1/sources?apiKey=<%=Rails.application.secrets.news_api %>"
+    console.log("news");
+    console.log(news);
+    $.ajax({
+        url: news,
+        method: "get"
+    }).done(function(res) {
+        if (res.status == 'ok') {
+            $.each(res.sources, function(key,value){
+              var link = "<li><a href="+value.url+" target='_blank'>news link</a></li>"
+              var description = "<li>"+value.description+"</li>"
+              $('.news_api').append("<ul style='width:100%;'><strong>"+value.name+"</strong>"+description+""+link+"</ul>");
+            });
+        } else {
+            $('.news_api').append(res.message);
         }
-      ]);
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
+    }).fail(function(res) {
+        $('.news_api').append("Some system errors");
+    });
+  </script>
+  <!-- webhose news api -->
+  <script type="text/javascript">
+    var news = "https://webhose.io/search?token=b7202226-c630-4d26-8af0-08ea60d679b1&format=json&q=thread.country%3A<%= current_user.country %>"
+    console.log("news");
+    console.log(news);
+    $.ajax({
+        url: news,
+        method: "get"
+    }).done(function(res) {
+        if (res) {
+            // console.log(res);
+            console.log(res.posts);
+            $.each(res.posts, function(key,value){
+              console.log(value);
+              var link = "<li><a href="+value.url+" target='_blank'>more</a></li>"
+              var description = "<li>"+value.text+"</li>"
+              $('.news_api_webhose').append("<ul style='width:100%;'><strong>"+value.title+"</strong>"+description+"..."+link+"</ul>");
+            });
+        } else {
+            $('.news_api_webhose').append(res.message);
+        }
+    }).fail(function(res) {
+        $('.news_api_webhose').append("Some system errors");
     });
   </script>
 <% end %>
