@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
     "#{city}, #{state}, #{country}"
   end
 
+  def scsc
+    "#{street}, #{city}, #{state}, #{country}"
+  end
+
 end

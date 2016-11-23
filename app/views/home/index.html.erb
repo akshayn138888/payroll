@@ -14,7 +14,7 @@
       <div class="weather_report col-md-12">
         <% require "open_weather" %>
         <% options = { units: "metric", APPID: "cb1d01bbe4a55571e6d3fdab011e6f40"} %>
-        <% @weather = OpenWeather::Current.city("Cochin, IN", options) %>
+        <% @weather = OpenWeather::Current.city("#{current_user.city}, #{current_user.country}", options) %>
         <div><h2><%= current_user.csc %></h2></div>
         <div>
           <span><img src="http://openweathermap.org/img/w/<%=@weather["weather"][0]["icon"]%>.png"></span>
@@ -54,9 +54,16 @@
 <% if current_user %>
   <script type="text/javascript">
     $( document ).ready(function() {
-      <% @location =Geocoder.coordinates(current_user.csc)%>
-      handler = Gmaps.build('Google');
-      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+      <% @location =Geocoder.coordinates(current_user.scsc)%>
+      console.log("<%= @location %>")
+      handler = Gmaps.build('Google',
+        {markers:
+          {clusterer: {
+            gridSize: 40,
+            maxZoom: 100,
+            }}}
+          );
+      handler.buildMap({ provider: {Zoom: 15}, internal: {id: 'map'}}, function(){
         markers = handler.addMarkers([
           {
             "lat": <%= @location[0] %>,
@@ -70,7 +77,8 @@
           }
         ]);
         handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
+        // handler.fitMapToBounds();
+        handler.map.centerOn(markers[0]);
       });
     });
   </script>
