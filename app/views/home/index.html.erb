@@ -17,7 +17,7 @@
         <% @weather = OpenWeather::Current.city("#{current_user.city}, #{current_user.country}", options) %>
         <div><h2><%= current_user.csc %></h2></div>
         <div>
-          <span><img src="http://openweathermap.org/img/w/<%=@weather["weather"][0]["icon"]%>.png"></span>
+          <span><img src="https://openweathermap.org/img/w/<%=@weather["weather"][0]["icon"]%>.png"></span>
           <%= @weather["weather"][0]["main"] %> - <%= @weather["weather"][0]["description"] %>
         </div>
         <div>
@@ -42,7 +42,7 @@
 
 <script type="text/javascript">
 	$('.address').each(function () {
-      var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent( $(this).text() ) + "' target='_blank'>" + $(this).text() + "</a>";
+      var link = "<a href='https://maps.google.com/maps?q=" + encodeURIComponent( $(this).text() ) + "' target='_blank'>" + $(this).text() + "</a>";
       $(this).html(link);
    });
 </script>
@@ -67,7 +67,7 @@
             "lat": <%= @location[0] %>,
             "lng": <%= @location[1] %>,
             // "picture": {
-            //   "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+            //   "url": "https://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
             //   "width":  32,
             //   "height": 32
             // },
