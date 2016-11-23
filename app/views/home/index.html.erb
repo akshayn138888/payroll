@@ -54,8 +54,6 @@
 <% if current_user %>
   <script type="text/javascript">
     $( document ).ready(function() {
-      <% @location =Geocoder.coordinates(current_user.scsc)%>
-      console.log("<%= @location %>")
       handler = Gmaps.build('Google',
         {markers:
           {clusterer: {
