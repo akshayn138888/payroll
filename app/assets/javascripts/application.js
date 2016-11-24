@@ -17,6 +17,7 @@
 //= require bootstrap-sprockets
 //= require underscore
 //= require gmaps/google
+//= require chosen-jquery
 //= require_tree .
 
 $(document).ready(function(){
@@ -24,4 +25,17 @@ $(document).ready(function(){
 
   var tz = jstz.determine();
   $.cookie('timezone', tz.name());
-})
+});
+
+var ready;
+
+ready = function(){
+    // enable chosen js
+    $('.chosen-select').chosen({
+        no_results_text: 'No results matched'
+    });
+}
+
+$(document).ready(ready);
+// if using turbolinks
+$(document).on("page:load",ready);
