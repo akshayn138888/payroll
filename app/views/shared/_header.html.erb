@@ -1,0 +1,24 @@
+<nav class="navbar navbar-inverse no_radius">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">EMAP</a>
+    </div>
+    <% if user_signed_in? %>
+    <ul class="nav navbar-nav">
+      <li><%= link_to "Calendar", time_sheets_path, :class => 'navbar-link'  %></li> 
+      <li><%= link_to "Time Sheet", new_time_sheet_path, :class => 'navbar-link'  %></li> 
+      <li><%= link_to "Map", home_index_path, :class => 'navbar-link'  %> </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to current_user.email, edit_user_registration_path %></li>
+      <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+    </ul>
+    <%else%>
+    <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></li>
+      <li><%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %></li>
+    </ul>
+    <%end%>
+  </div>
+</nav>
+<%= render "shared/notification" %>
