@@ -5,6 +5,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :time_sheets
 
+  acts_as_messageable
+
+  def mailboxer_email(object)
+    self.email
+  end
+
   def address
   	"#{street}, #{city}, #{state}, #{country}, #{zipcode}"
   end

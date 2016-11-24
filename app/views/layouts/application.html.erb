@@ -16,11 +16,12 @@
 	    </div>
 	    <% if user_signed_in? %>
 	    <ul class="nav navbar-nav">
-	      <li><%= link_to "Calendar", time_sheets_path, :class => 'navbar-link'  %></li> 
-	      <li><%= link_to "Time Sheet", new_time_sheet_path, :class => 'navbar-link'  %></li> 
-	      <li><%= link_to "Map", home_index_path, :class => 'navbar-link'  %> </li>
-	    </ul>
-	    <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to "Message", mailbox_inbox_path %></li>
+        <li><%= link_to "Calendar", time_sheets_path, :class => 'navbar-link'  %></li> 
+        <li><%= link_to "Time Sheet", new_time_sheet_path, :class => 'navbar-link'  %></li> 
+        <li><%= link_to "Map", home_index_path, :class => 'navbar-link'  %> </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
 	      <li><%= link_to current_user.email, edit_user_registration_path %></li>
 	      <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
 	    </ul>
