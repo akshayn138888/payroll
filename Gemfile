@@ -53,6 +53,8 @@ group :development do
   gem 'spring'
 end
 
+gem 'rails_12factor', group: :production
+
 gem 'open-weather'
 gem 'gmaps4rails'
 gem 'geocoder'
