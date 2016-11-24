@@ -33,6 +33,7 @@ class TimeSheetsController < ApplicationController
 	end
 
 	def create
+		params[:time_sheet][:check_in] = Time.now
 		@time_sheet = current_user.time_sheets.build(time_sheet_params)
 		@time_sheet.timezone = Time.zone.name
 		if @time_sheet.save
@@ -43,10 +44,9 @@ class TimeSheetsController < ApplicationController
 	end
 
 	def update
+		params[:time_sheet][:check_out] = Time.now
 		@time_sheet = current_user.time_sheets.find_by_id(params[:id])	
 		if @time_sheet.present? && @time_sheet.update(time_sheet_params)
-			p '-------------------------'
-			p @time_sheet
 			redirect_to :back, notice: "Check out sucessfully"
 		else
 			redirect_to :back, notice: @time_sheet.errors
