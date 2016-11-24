@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # before_action :authenticate_user!
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  around_filter :set_time_zone
 
 	protected
 
@@ -11,4 +12,15 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:role, :street, :city,:state, :country, :zipcode, :age, :height, :dob, :email, :password, :password_confirmation])
     	devise_parameter_sanitizer.permit(:account_update, keys: [:role, :street, :city,:state, :country, :zipcode, :age, :height, :dob, :email, :password, :password_confirmation])
 	end
+
+  private
+
+  def set_time_zone
+    p old_time_zone = Time.zone
+    p timezone = cookies[:timezone]
+    p Time.zone = timezone if timezone.present?
+    yield
+  ensure
+    p Time.zone = old_time_zone
+  end
 end

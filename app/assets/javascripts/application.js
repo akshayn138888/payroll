@@ -21,4 +21,7 @@
 
 $(document).ready(function(){
   $(".date").datepicker();
+
+  var tz = jstz.determine();
+  $.cookie('timezone', tz.name());
 })

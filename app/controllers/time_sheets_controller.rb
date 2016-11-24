@@ -34,6 +34,7 @@ class TimeSheetsController < ApplicationController
 
 	def create
 		@time_sheet = current_user.time_sheets.build(time_sheet_params)
+		@time_sheet.timezone = Time.zone.name
 		if @time_sheet.save
 			redirect_to :back, notice: "Check in sucessfully"
 		else
