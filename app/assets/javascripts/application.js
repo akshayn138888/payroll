@@ -17,6 +17,9 @@
 //= require underscore
 //= require gmaps/google
 //= require chosen-jquery
+//= require jstz.min
+//= require moment.min
+//= require jquery.cookie.min
 
 $(document).ready(function(){
   $(".date").datepicker();
