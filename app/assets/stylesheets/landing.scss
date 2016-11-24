@@ -10,9 +10,21 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
+ *= require prettify.min
+ *= require css/animate
+ *= require css/bootstrap.min
+ *= require css/style
+ *= require animate.min
+ *= require bootstrap
+ *= require custom.min
+ *= require font-awesome.min
  *= require_self
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.btn-align{
+	margin-right:5px !important;
+	color:#fff !important;
+}
