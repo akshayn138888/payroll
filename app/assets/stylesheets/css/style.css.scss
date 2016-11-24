@@ -53,7 +53,7 @@ body a{
 }
 
 .menu{
-	background:url("../header.jpg" ) 0px 0px no-repeat;
+	background:url(asset-path("header.jpg") ) 0px 0px no-repeat;
 	width:100%;
 	height:650px;
 	background-size:cover;
@@ -179,17 +179,17 @@ h3{
 
 .hi-icon-sofa:before {
 	content: "\e009";
-	background:url("../icons2.png" ) 0px 0px no-repeat;
+	background:url(asset-path("icons2.png") ) 0px 0px no-repeat;
 }
 
 .hi-icon-rack:before {
 	content: "\e00a";
-	background:url("../icons2.png" ) -70px 0px no-repeat;
+	background:url(asset-path("icons2.png") ) -70px 0px no-repeat;
 }
 
 .hi-icon-bed:before {
 	content: "\e002";
-	background:url("../icons2.png" ) -140px 0px no-repeat;
+	background:url(asset-path("icons2.png") ) -140px 0px no-repeat;
 }
 
 
@@ -293,7 +293,7 @@ h3{
 /* ----------- New Ends Here ------------ */
 
 .about{
-	background:url("../about.jpg" ) 0px 0px no-repeat;
+	background:url(asset-path("about.jpg")) 0px 0px no-repeat;
 	width:100%;
 	min-height:600px;
 	background-size:cover;
@@ -679,7 +679,7 @@ address{
 	height: 48px;
 	border: none;
 	text-indent: 100%;
-	background: url("../to-top.png") no-repeat 0px 0px;
+	background: url(asset-path("to-top.png")) no-repeat 0px 0px;
 }
 /*-- //Go-To-Top-Button --*/
 
@@ -718,7 +718,7 @@ address{
 }
 
 .about {
-    background: url("../about.jpg") -200px 0px no-repeat;
+    background: url(asset-path("about.jpg")) -200px 0px no-repeat;
 	min-height: 500px;
 }
 .about-content {
@@ -845,12 +845,12 @@ address{
 }
 
 .hi-icon-rack:before {
-	background: url("../icons2.png") -61px 0px no-repeat;
+	background: url(asset-path("icons2.png")) -61px 0px no-repeat;
 	background-size: 200px;
 }
 
 .hi-icon-bed:before {
-	background: url("../icons2.png") -122px 0px no-repeat;
+	background: url(asset-path("icons2.png")) -122px 0px no-repeat;
 	background-size: 200px;
 }
 
@@ -915,7 +915,7 @@ div#bs-example-navbar-collapse-1 {
     padding: 5px 0;
 }
 .about {
-    background: url("../about.jpg") -235px 0px no-repeat;
+    background: url(asset-path("about.jpg")) -235px 0px no-repeat;
 }
 
 .wrapper {
@@ -1081,7 +1081,7 @@ h3 {
 }
 
 .about {
-    background: url("../about.jpg") -490px 0px no-repeat;
+    background: url(asset-path("about.jpg")) -490px 0px no-repeat;
 }
 
 .resp-tab-item {
