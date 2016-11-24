@@ -5,10 +5,10 @@ class TimeSheet < ActiveRecord::Base
 	end
 
 	def check_in?
-		check_in.present? ? check_in.strftime("%T") : "-"
+		check_in.present? ? check_in.strftime("%T %p") : "-"
 	end
 
 	def check_out?
-		check_out.present? ? check_out.strftime("%T") : "-"
+		check_out.present? ? check_out.strftime("%T %p") : "-"
 	end
 end
