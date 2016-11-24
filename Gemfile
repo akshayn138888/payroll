@@ -56,3 +56,5 @@ end
 gem 'open-weather'
 gem 'gmaps4rails'
 gem 'geocoder'
+gem 'mailboxer'
+gem 'chosen-rails'

@@ -13,15 +13,27 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require turbolinks
 //= require bootstrap-sprockets
 //= require underscore
 //= require gmaps/google
-//= require_tree .
+//= require chosen-jquery
+//= require jstz.min
+//= require moment.min
+//= require jquery.cookie.min
 
 $(document).ready(function(){
   $(".date").datepicker();
 
   var tz = jstz.determine();
   $.cookie('timezone', tz.name());
-})
+  $(".trash_btn_div").hide();
+});
+
+$(document).on({
+    mouseenter: function () {
+    $(this).find(".trash_btn_div").show();
+    },
+    mouseleave: function () {
+      $(this).find(".trash_btn_div").hide();
+    }
+}, ".messages_container");
